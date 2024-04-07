@@ -46,3 +46,9 @@ Lancez le script en utilisant la commande suivante :
 py scrap.py
 ```
 
+
+j'ai 
+python3.12.2
+selenium==4.19.0
+
+
