@@ -1,9 +1,13 @@
 import json
 from scrap_insta import scrap_insta_reel, scrap_insta_publication
+from scrap_tiktok import scrap_tiktok, move_videos
 
 # Étape 1: Lire le fichier JSON
 with open('back_urls.json', 'r') as file:
     data = json.load(file)
+
+with open("param.json", "r") as f:
+        params = json.load(f)
 
 # Étape 2: Demander à l'utilisateur de choisir une tiktokeuse
 print("Choisissez une tiktokeuse :")
@@ -39,27 +43,49 @@ while True:
 # bien reçu
 
 print("Bien reçu,")
+# Initialisation des listes pour chaque type de contenu
+instagram_posts = []
+instagram_reels = []
+tiktok_videos = []
 
-# Affichage et scraping des URLs
-count = 0
+# Tri des URLs
 for url in urls:
-    count += 1
-    
+    if "instagram.com/p/" in url:
+        instagram_posts.append(url)
+    elif "instagram.com/reel/" in url:
+        instagram_reels.append(url)
+    elif "tiktok.com" in url and "/video/" in url:
+        tiktok_videos.append(url)
+    else:
+        print(f"Type de contenu non pris en charge pour l'URL {url}")
+
+# Scraping des publications Instagram
+for url in instagram_posts:
     try:
-        # Vérification du type de lien et appel de la fonction correspondante
-        if "instagram.com/p/" in url:
-            scrap_insta_publication(url, selected_path, selected_tiktokeuse, selected_back)
-        elif "instagram.com/reel/" in url:
-            scrap_insta_reel(url, selected_path, selected_tiktokeuse, selected_back)
-        elif "tiktok.com" in url and "/video/" in url:
-            scrap_tiktok(url, selected_path, selected_tiktokeuse, selected_back)
-        else:
-            print(f"Type de contenu non pris en charge pour l'URL {count}")
-            break
-        
-        print(f"Scraping de l'url {count} réussi \n Et tous en coeur : VIVE LES FOURMIS !!!")
+        scrap_insta_publication(url, selected_path, selected_tiktokeuse, selected_back)
+        print(f"Scraping réussi pour la publication Instagram : {url}")
     except Exception as e:
-        print(f"Scraping de l'url {count} échoué: {e}")
+        print(f"Scraping échoué pour la publication Instagram {url}: {e}")
+
+# Scraping des reels Instagram
+for url in instagram_reels:
+    try:
+        scrap_insta_reel(url, selected_path, selected_tiktokeuse, selected_back)
+        print(f"Scraping réussi pour le reel Instagram : {url}")
+    except Exception as e:
+        print(f"Scraping échoué pour le reel Instagram {url}: {e}")
+
+# Scraping des vidéos TikTok
+if tiktok_videos:
+    try:
+        # On suppose que Scrap_TikTok accepte une liste d'URLs
+        nb = scrap_tiktok(tiktok_videos)
+        download_folder = params["download_folder"]
+        move_videos(download_folder, selected_path, selected_tiktokeuse, selected_back, nb)
+        print(f"Scraping réussi pour les vidéos TikTok.")
+    except Exception as e:
+        print(f"Scraping échoué pour les vidéos TikTok: {e}")
+
 
 
 
