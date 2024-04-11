@@ -1,13 +1,11 @@
 import json
 from scrap_insta import scrap_insta_reel, scrap_insta_publication
-from scrap_tiktok import scrap_tiktok, move_videos
+from scrap_tiktok import scrap_tiktok
 
 # Étape 1: Lire le fichier JSON
 with open('back_urls.json', 'r') as file:
     data = json.load(file)
 
-with open("param.json", "r") as f:
-        params = json.load(f)
 
 # Étape 2: Demander à l'utilisateur de choisir une tiktokeuse
 print("Choisissez une tiktokeuse :")
@@ -76,15 +74,13 @@ for url in instagram_reels:
         print(f"Scraping échoué pour le reel Instagram {url}: {e}")
 
 # Scraping des vidéos TikTok
-if tiktok_videos:
+for url in tiktok_videos:
     try:
-        # On suppose que Scrap_TikTok accepte une liste d'URLs
-        nb = scrap_tiktok(tiktok_videos)
-        download_folder = params["download_folder"]
-        move_videos(download_folder, selected_path, selected_tiktokeuse, selected_back, nb)
-        print(f"Scraping réussi pour les vidéos TikTok.")
+        scrap_tiktok(url, selected_path, selected_tiktokeuse, selected_back)
+        print(f"Scraping réussi pour le tiktok : {url}")
     except Exception as e:
-        print(f"Scraping échoué pour les vidéos TikTok: {e}")
+        print(f"Scraping échoué pour le tiktok {url}: {e}")
+
 
 
 
