@@ -4,9 +4,9 @@
 
 Suivez les étapes ci-dessous pour configurer et exécuter le script.
 
-## Configuration de l'environnement
+## Configuration de l'environnement (optionel)
 
-1. Créez un environnement virtuel Python :
+1. Créez un environnement virtuel Python3.12 :
 
    ```
    py -m venv .env
@@ -29,14 +29,12 @@ Suivez les étapes ci-dessous pour configurer et exécuter le script.
 3. Installez les dépendances nécessaires :
 
    ```bash
-   pip install instaloader json selenium platform
+   pip install instaloader==4.11 requests==2.31.0
    ```
 
 ## Configuration du script
 
-- installer firfox et un web driver pour selenium : https://github.com/mozilla/geckodriver/releases/download/v0.34.0/geckodriver-v0.34.0-win-aarch64.zip
 - Éditez le fichier `back_url.json` avec les répertoires correct
-- Éditez le fichier `param.json` avec les répertoires correct
 
 ## Exécution du script
 
@@ -45,10 +43,5 @@ Lancez le script en utilisant la commande suivante :
 ```bash
 py scrap.py
 ```
-
-
-j'ai 
-python3.12.2
-selenium==4.19.0
 
 
