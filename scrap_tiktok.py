@@ -51,9 +51,15 @@ def download_video(video_id, directory):
 
 def scrap_tiktok(url, directory, tiktokeuse, back):
     video_id = get_video_id_from_url(url)
-    today = datetime.today().strftime('%d.%m.%Y-%H.%M.%S')
-    new_filename = f"{today}-{tiktokeuse}-{back}.mp4"
+
+    # Jules version
+    num_files = len([name for name in os.listdir(destination_directory) if os.path.isfile(os.path.join(destination_directory, name))])
+    new_filename = f"Back {num_files + 1}.mp4"
     destination_directory = str(directory)
+
+    # date version
+    # today = datetime.today().strftime('%d.%m.%Y-%H.%M.%S')
+    # new_filename = f"{today}-{tiktokeuse}-{back}.mp4"
 
     # Télécharger la vidéo
     download_path = download_video(video_id, destination_directory)
