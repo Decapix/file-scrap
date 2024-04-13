@@ -53,7 +53,7 @@ def scrap_tiktok(url, directory, tiktokeuse, back):
     video_id = get_video_id_from_url(url)
 
     # Jules version
-    num_files = len([name for name in os.listdir(destination_directory) if os.path.isfile(os.path.join(destination_directory, name))])
+    num_files = len([name for name in os.listdir(directory) if os.path.isfile(os.path.join(directory, name))])
     new_filename = f"Back {num_files + 1}.mp4"
     destination_directory = str(directory)
 
