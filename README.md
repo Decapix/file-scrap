@@ -29,7 +29,7 @@ Suivez les étapes ci-dessous pour configurer et exécuter le script.
 3. Installez les dépendances nécessaires :
 
    ```bash
-   pip install instaloader==4.11 requests==2.31.0
+   pip install instaloader==4.11 yt-dlp==2024.5.26
    ```
 
 ## Configuration du script
