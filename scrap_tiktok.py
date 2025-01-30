@@ -1,7 +1,9 @@
 import os
 import shutil
 from datetime import datetime
+import os
 import yt_dlp
+import subprocess
 
 def get_video_id_from_url(url):
     """
@@ -11,9 +13,10 @@ def get_video_id_from_url(url):
     video_id = parts.split('?')[0]
     return video_id
 
+
 def download_video_with_ytdlp(url, directory):
     """
-    Utilise yt-dlp pour télécharger la vidéo à partir de l'URL fournie.
+    Utilise yt-dlp pour télécharger la vidéo à partir de l'URL fournie et la convertit en utilisant ffmpeg.
     """
     ydl_opts = {
         'format': 'best',
@@ -22,16 +25,33 @@ def download_video_with_ytdlp(url, directory):
         'no_warnings': True,
         'noplaylist': True
     }
-    
+
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
             info_dict = ydl.extract_info(url, download=True)
             video_id = info_dict.get('id', None)
             file_ext = info_dict.get('ext', 'mp4')
             download_path = os.path.join(directory, f'{video_id}.{file_ext}')
-            return download_path
+
+            # Chemin pour le fichier converti
+            converted_path = os.path.join(directory, f'{video_id}_converted.mp4')
+
+            # Commande ffmpeg pour convertir la vidéo
+            command = [
+                'ffmpeg', '-i', download_path,
+                '-c:v', 'libx264', '-c:a', 'aac',
+                '-strict', 'experimental', converted_path
+            ]
+
+            # Exécuter la commande ffmpeg
+            subprocess.run(command, check=True)
+
+            return converted_path
         except yt_dlp.utils.DownloadError:
             print('Erreur lors de la récupération de la vidéo.')
+            return None
+        except subprocess.CalledProcessError:
+            print('Erreur lors de la conversion de la vidéo.')
             return None
 
 def scrap_tiktok(url, directory, tiktokeuse, back):

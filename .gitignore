@@ -1,0 +1,72 @@
+# Fichiers et répertoires générés par Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+venv/
+env/
+.venv/
+.env/
+
+res/
+.ropeproject/
+
+# Fichiers de configuration sensible
+*.env
+*.ini
+*.cfg
+
+# Fichiers de sortie et logs
+*.log
+*.sqlite3
+
+# Fichiers de développement
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Fichiers de distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Fichiers de test et de couverture
+.coverage
+htmlcov/
+.pytest_cache/
+.coverage.*
+*.cover
+*.py,cover
+.tox/
+.nox/
+
+# Fichiers de configuration d'IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Fichiers de documentation
+docs/_build/
+
+# Fichiers spécifiques au projet
+.DS_Store
+Thumbs.db
